@@ -25,11 +25,10 @@
 // Link to related file: <https://github.com/HaxePunk/tiled/blob/master/com/haxepunk/tmx/TmxLayer.hx>
 package openfl.tiled;
 
-import flash.geom.Rectangle;
 import flash.utils.ByteArray;
 import flash.utils.Endian;
 
-import openfl.display.Tilesheet;
+// import openfl.display.Tilesheet;
 
 class Layer {
 
@@ -54,8 +53,11 @@ class Layer {
 	/** The parent TiledMap */
 	public var parent(default, null):TiledMap;
 
+	public var offsetX(default, null):Int;
+	public var offsetY(default, null):Int;
+
 	private function new(parent:TiledMap, name:String, width:Int, height:Int,
-			opacity:Float, visible:Bool, tiles:Array<Int>) {
+			opacity:Float, visible:Bool, tiles:Array<Int>, offsetX:Int, offsetY:Int) {
 		this.parent = parent;
 		this.name = name;
 		this.width = width;
@@ -68,6 +70,9 @@ class Layer {
 		for(gid in tiles) {
 			this.tiles.push(Tile.fromGID(gid, this));
 		}
+
+		this.offsetX = offsetX;
+		this.offsetY = offsetY;
 	}
 
 	/**
@@ -87,6 +92,8 @@ class Layer {
 				true : false;
 
 		var tileGIDs:Array<Int> = new Array<Int>();
+		var offsetX:Int = Std.parseInt(xml.get("offsetx"));
+		var offsetY:Int = Std.parseInt(xml.get("offsety"));
 
 		for (child in xml) {
 			if(Helper.isValidElement(child)) {
@@ -124,7 +131,7 @@ class Layer {
 			}
 		}
 
-		return new Layer(parent, name, width, height, opacity, visible, tileGIDs);
+		return new Layer(parent, name, width, height, opacity, visible, tileGIDs, offsetX, offsetY);
 	}
 
 	/**
@@ -167,7 +174,6 @@ class Layer {
 	private static function csvToArray(input:String):Array<Int> {
 		var result:Array<Int> = new Array<Int>();
 		var rows:Array<String> = StringTools.trim(input).split("\n");
-		var row:String;
 
 		for (row in rows) {
 
@@ -175,9 +181,7 @@ class Layer {
 				continue;
 			}
 
-			var resultRow:Array<Int> = new Array<Int>();
 			var entries:Array<String> = row.split(",");
-			var entry:String;
 
 			for (entry in entries) {
 
@@ -216,7 +220,6 @@ class Layer {
 
 		//initialize lookup table
 		var lookup:Array<Int> = new Array<Int>();
-		var c:Int;
 		for (c in 0...BASE64_CHARS.length){
 			lookup[BASE64_CHARS.charCodeAt(c)] = c;
 		}

@@ -27,7 +27,7 @@ import flash.geom.Rectangle;
 
 import haxe.io.Path;
 
-import openfl.display.Tilesheet;
+// import openfl.display.Tilesheet;
 
 class Tileset {
 

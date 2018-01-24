@@ -30,15 +30,15 @@ import flash.events.Event;
 
 import haxe.io.Path;
 
-import openfl.display.Tilesheet;
+// import openfl.display.Tilesheet;
 
 import openfl.tiled.display.Renderer;
 
-#if !flash
-import openfl.tiled.display.TilesheetRenderer;
-#else
+// #if !flash
+// import openfl.tiled.display.TilesheetRenderer;
+// #else
 import openfl.tiled.display.CopyPixelsRenderer;
-#end
+// #end
 
 /**
  * This class represents a TILED map
@@ -129,11 +129,11 @@ class TiledMap extends Sprite {
 	 * @return A TiledMap object
 	 */
 	public static function fromAssets(path:String, ?render:Bool = true):TiledMap {
-		#if !flash
-		var renderer = new TilesheetRenderer();
-		#else
+		// #if !flash
+		// var renderer = new TilesheetRenderer();
+		// #else
 		var renderer = new CopyPixelsRenderer();
-		#end
+		// #end
 
 		return new TiledMap(path, renderer, render);
 	}
