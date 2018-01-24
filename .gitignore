@@ -4,3 +4,4 @@ bin
 *.hxproj
 *.zip
 *.swp
+.DS_Store
