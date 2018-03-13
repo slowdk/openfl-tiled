@@ -98,7 +98,11 @@ class TiledObject {
 				if (child.nodeName == "properties") {
 					for (property in child) {
 						if(Helper.isValidElement(property)) {
-							properties.set(property.get("name"), property.get("value"));
+							var f:Xml = property.firstChild();
+							if (f!=null) {
+								properties.set(property.get("name"), StringTools.trim(f.nodeValue.toString()));
+							}
+							
 						}
 					}
 				}
