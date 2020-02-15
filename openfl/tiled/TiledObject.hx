@@ -50,10 +50,10 @@ class TiledObject {
 	public var height(default, null):Int;
 
 	/** Checks if this object has a polygons */
-	public var hasPolygon(get_hasPolygon, null):Bool;
+	public var hasPolygon(get, null):Bool;
 
 	/** Check if this object has a polylines */
-	public var hasPolyline(get_hasPolyline, null):Bool;
+	public var hasPolyline(get, null):Bool;
 
 	/** The polygon of this object. Default: null */
 	public var polygon(default, null):TiledPolygon;
@@ -62,7 +62,7 @@ class TiledObject {
 	public var polyline(default, null):TiledPolyline;
 
 	/** Contains all properties from this object */
-	public var properties(default, null):Map<String, String>;
+	public var properties(default, null):Map<String, Dynamic>;
 
 	private function new(parent:TiledObjectGroup, gid:Int, name:String, type:String, x:Int, y:Int,
 			width:Int, height:Int, polygon:TiledPolygon, polyline:TiledPolyline,
@@ -85,8 +85,8 @@ class TiledObject {
 		var gid:Int = xml.get("gid") != null ? Std.parseInt(xml.get("gid")) : 0;
 		var name:String = xml.get("name");
 		var type:String = xml.get("type");
-		var x:Int = Std.parseInt(xml.get("x"));
-		var y:Int = Std.parseInt(xml.get("y"));
+		var x:Int = Std.parseInt(xml.get("X"));
+		var y:Int = Std.parseInt(xml.get("Y"));
 		var width:Int = Std.parseInt(xml.get("width"));
 		var height:Int = Std.parseInt(xml.get("height"));
 		var polygon:TiledPolygon = null;
@@ -98,11 +98,7 @@ class TiledObject {
 				if (child.nodeName == "properties") {
 					for (property in child) {
 						if(Helper.isValidElement(property)) {
-							var f:Xml = property.firstChild();
-							if (f!=null) {
-								properties.set(property.get("name"), StringTools.trim(f.nodeValue.toString()));
-							}
-							
+							properties.set(property.get("name"), StringTools.trim(property.get("value")));
 						}
 					}
 				}
