@@ -85,8 +85,8 @@ class TiledObject {
 		var gid:Int = xml.get("gid") != null ? Std.parseInt(xml.get("gid")) : 0;
 		var name:String = xml.get("name");
 		var type:String = xml.get("type");
-		var x:Int = Std.parseInt(xml.get("X"));
-		var y:Int = Std.parseInt(xml.get("Y"));
+		var x:Int = Std.parseInt(xml.get("x"));
+		var y:Int = Std.parseInt(xml.get("y"));
 		var width:Int = Std.parseInt(xml.get("width"));
 		var height:Int = Std.parseInt(xml.get("height"));
 		var polygon:TiledPolygon = null;
