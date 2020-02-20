@@ -20,7 +20,8 @@ class CopyPixelsRenderer implements Renderer {
 	}
 
 	public function drawLayer(on:Dynamic, layer:Layer):Void {
-		var bitmapData = new BitmapData(map.totalWidth, map.totalHeight, true, map.backgroundColor);
+		var bgColor = on.numChildren == 0 ? map.backgroundColor:0x00000000;
+		var bitmapData = new BitmapData(map.totalWidth, map.totalHeight, true, bgColor);
 		var gidCounter:Int = 0;
 
 		if(layer.visible) {
